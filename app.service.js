@@ -1,5 +1,5 @@
 angular.module('myapp')
-    .service('MyService', function($http){
+    .service('MyService', function($http, $q){
 
         var name = "asdf";
 
@@ -12,8 +12,25 @@ angular.module('myapp')
         };
 
         this.getRepos = function(query){
+            var defer = $q.defer();
             var url = 'https://api.github.com/search/repositories?q='+query;
-            return $http.get(url);
+            var httpPromise =  $http.get(url);
+            httpPromise.then(function(res){
+                var result = res.data.items;              
+                var finalResponse = result
+                                    .filter(function(item){
+                                        return item.name.startsWith(query);
+                                    })
+                                    .map(function(item){
+                                        return {
+                                            full_name: item.full_name
+                                        };
+                                    });
+                defer.resolve(finalResponse);
+            });
+
+            return defer.promise;
+
         };
 
     });

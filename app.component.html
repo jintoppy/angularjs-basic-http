@@ -5,7 +5,8 @@
     >
 
 <ul>
-    <li ng-repeat="repo in $ctrl.repos">
+    <li ng-repeat="repo in $ctrl.repos track by $index">
+        <span>{{$index}}</span>
         <span>{{repo.full_name}}</span>
     </li>
 </ul>

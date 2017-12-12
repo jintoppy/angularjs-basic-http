@@ -8,7 +8,7 @@ angular.module('myapp')
                 if(this.query.length > 3){
                     var promise = MyService.getRepos(this.query);
                     promise.then(function(res){
-                        this.repos = res.data.items;
+                        this.repos = res;
                     }.bind(this));
                 }
             };
