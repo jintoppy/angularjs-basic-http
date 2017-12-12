@@ -1,0 +1,11 @@
+<input 
+    type="text" 
+    ng-model="$ctrl.query" 
+    ng-change="$ctrl.onInputChange()"
+    >
+
+<ul>
+    <li ng-repeat="repo in $ctrl.repos">
+        <span>{{repo.full_name}}</span>
+    </li>
+</ul>
